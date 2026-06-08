@@ -1,11 +1,14 @@
 package pages;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.asserts.*;
 
 import com.github.javafaker.Faker;
 
@@ -39,6 +42,11 @@ public class RegisterPage {
     By registerButton = By.id("register-button");
     
     By sucessregistermsg= By.xpath("//div[@class=\"result\"]");
+    
+    By validationsmsg =By.xpath("//span[@class=\"field-validation-error\"]/span");
+    
+    
+    
 
 
     // Faker Object
@@ -49,9 +57,9 @@ public class RegisterPage {
 
     String generatedLastName = faker.name().lastName();
 
-    String generatedEmail = faker.internet().emailAddress();
+    public String generatedEmail = faker.internet().emailAddress();
 
-    String generatedPassword = "Ssp@231";
+    public String generatedPassword = "Ssp@231";
 
 
     // Launch Page
@@ -139,6 +147,31 @@ public class RegisterPage {
     {
     	String sccmsg= driver.findElement(sucessregistermsg).getText().trim();
     	return sccmsg;
+    }
+    
+
+    public void verifyvalidation() {
+        List<String> reqval = Arrays.asList(
+            "First name is required.",
+            "Last name is required.",
+            "Email is required.",
+            "Password is required.",
+            "Password is required."
+        );
+        
+        List<WebElement> validationElements = driver.findElements(validationsmsg);
+        List<String> actualMessages = new ArrayList<String>(); // Syntax fixed
+        
+        for (WebElement element : validationElements) {
+            String text = element.getText().trim();
+            if (!text.isEmpty()) {
+                actualMessages.add(text);
+            }
+        }
+        
+       
+     // JUnit format: Assert.assertEquals("Message", Expected, Actual);
+        Assert.assertEquals("Validation messages match nahi jhale!", reqval, actualMessages);
     }
 }
 

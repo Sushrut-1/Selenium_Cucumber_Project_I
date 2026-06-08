@@ -7,12 +7,14 @@ import hooks.hooks;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import pages.LoginPage;
 import pages.RegisterPage;
 
 public class RegisterSteps{
 	
 	WebDriver driver;
 	RegisterPage registerpage;
+	LoginPage loginpage;
 	
 	
 	@Given("User opens Demo Web Shop Register page")
@@ -21,6 +23,7 @@ public class RegisterSteps{
 		driver = hooks.driver;
 		
 		registerpage = new RegisterPage(driver);
+		loginpage=new LoginPage(driver);
 		
 		registerpage.launchPage();
 	}
@@ -40,7 +43,7 @@ public class RegisterSteps{
 	    registerpage.clickRegisterButton();
 	}
 
-	@Then("User should register successfully")
+	@When("User should register successfully")
 	public void user_should_register_successfully() {
 	    String msg=registerpage.getsuccessmsg();
 	    
@@ -48,6 +51,22 @@ public class RegisterSteps{
 	    System.out.println("After register sucessfull message is: "+ msg);
 	    
 	    Assert.assertEquals(expectedscssmsg, msg);
+	}
+	
+	@Then("User should able to login")
+	public void login_after_registration() {
+		 driver.get("https://demowebshop.tricentis.com/login");
+		loginpage.enterUsername(registerpage.generatedEmail);
+		loginpage.enterPassword(registerpage.generatedPassword);
+		loginpage.clickLogin();
+		loginpage.getLoggedInEmailText();
+		
+	}
+	
+	@Then("Validation should fire for mandatory field")
+	public void verify_validation()
+	{
+		registerpage.verifyvalidation();
 	}
 
 	
