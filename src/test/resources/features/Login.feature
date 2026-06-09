@@ -4,7 +4,7 @@ Feature: Login Functionality
     
     Given User opens Demo Web Shop application
 
-  @SmokeTest
+  @SmokeTest @RegressionTest
   Scenario: Login with valid credentials
     When User enters email as "ssparab@gmail.com"
     And User enters password as "test@123"

@@ -1,14 +1,13 @@
 package stepdefinitions;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.LoginPage;
 import hooks.hooks;
-import org.junit.Assert;
+import org.testng.Assert;
 
 public class Loginsteps {
 	
@@ -18,7 +17,7 @@ public class Loginsteps {
 
 	@Given("User opens Demo Web Shop application")
 	public void user_opens_demo_web_shop_application() {
-		driver = hooks.driver;
+		driver = hooks.getDriver();
 
         driver.get("https://demowebshop.tricentis.com/login");
 
@@ -45,12 +44,8 @@ public class Loginsteps {
 		String actualEmail = loginPage.getLoggedInEmailText();
 	    System.out.println("Logged in user is: " + actualEmail);
 	    
-	    
 	    String expectedEmail = "ssparab@gmail.com"; 
-	    Assert.assertEquals(expectedEmail, actualEmail);
-	    
-	   
-	    driver.quit();
+	    Assert.assertEquals(actualEmail, expectedEmail);
 	}
 
 	@Then("User should see login error message")
@@ -59,7 +54,7 @@ public class Loginsteps {
 	    System.out.println("Erro message" + errormsg);
 	    
 	    String expectederrormsg= "Login was unsuccessful. Please correct the errors and try again. The credentials provided are incorrect";
-	    Assert.assertEquals(expectederrormsg, errormsg);
+	    Assert.assertEquals(errormsg, expectederrormsg);
 	}
 
 	@Then("User should see validation message")
@@ -68,7 +63,7 @@ public class Loginsteps {
 	    System.out.println("Erro message: " + errormsg);
 	    
 	    String expectederrormsg= "Login was unsuccessful. Please correct the errors and try again. No customer account found";
-	    Assert.assertEquals(expectederrormsg,errormsg );
+	    Assert.assertEquals(errormsg,expectederrormsg );
 	}
 	
 	

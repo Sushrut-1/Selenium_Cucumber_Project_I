@@ -1,6 +1,6 @@
 package stepdefinitions;
 
-import org.junit.Assert;
+import org.testng.Assert;
 import org.openqa.selenium.WebDriver;
 
 import hooks.hooks;
@@ -20,7 +20,7 @@ public class RegisterSteps{
 	@Given("User opens Demo Web Shop Register page")
 	public void user_opens_demo_web_shop_register_page() {
 	    
-		driver = hooks.driver;
+		driver = hooks.getDriver();
 		
 		registerpage = new RegisterPage(driver);
 		loginpage=new LoginPage(driver);
@@ -50,7 +50,7 @@ public class RegisterSteps{
 	    String expectedscssmsg="Your registration completed";
 	    System.out.println("After register sucessfull message is: "+ msg);
 	    
-	    Assert.assertEquals(expectedscssmsg, msg);
+	    Assert.assertEquals(msg, expectedscssmsg);
 	}
 	
 	@Then("User should able to login")

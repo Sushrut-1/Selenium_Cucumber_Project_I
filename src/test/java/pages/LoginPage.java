@@ -3,10 +3,12 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import utilities.Elementutil;
+
 public class LoginPage {
     
     WebDriver driver;
-    
+    Elementutil elementUtils;
     // 2. Constructor 
     public LoginPage(WebDriver driver) {
         this.driver = driver;

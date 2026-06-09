@@ -12,9 +12,12 @@ import org.testng.asserts.*;
 
 import com.github.javafaker.Faker;
 
+import utilities.Elementutil;
+
 public class RegisterPage {
 
     WebDriver driver;
+    Elementutil elementUtils;
 
     // Constructor
     public RegisterPage(WebDriver driver) {
@@ -156,7 +159,7 @@ public class RegisterPage {
             "Last name is required.",
             "Email is required.",
             "Password is required.",
-            "Password is required."
+            "Password."
         );
         
         List<WebElement> validationElements = driver.findElements(validationsmsg);
